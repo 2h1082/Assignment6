@@ -26,13 +26,13 @@ void AMyActorSpawner::SpawnMyActor()
 	for (int32 i = 0; i < NumberOfObjects; ++i)
 	{
 		FVector SpawnLocation = UKismetMathLibrary::RandomPointInBoundingBox(BoxOrigin, BoxExtent);
-		FRotator SpawnRotation = FRotator(0.0f, FMath::RandRange(0, 360), 0.0f); //랜덤으로 Yaw값 조절
+		FRotator SpawnRotation = FRotator(0.0f, 0.0f, FMath::RandRange(0, 360)); //랜덤으로 Roll값 조절
 		
 		//스폰할 액터 선택 변수
-		bool bSpawnRotatingObject = FMath::RandBool(); 
+		int32 SpawnObject = FMath::RandRange(0,2); 
 		AActor* SpawnedObject = nullptr;
 
-		if (bSpawnRotatingObject)
+		if (!SpawnObject)
 		{
 			//회전 액터 생성
 			SpawnedObject = GetWorld()->SpawnActor<ARotatingObject>(RotatingObject, SpawnLocation, SpawnRotation);
@@ -48,7 +48,7 @@ void AMyActorSpawner::SpawnMyActor()
 				}
 			}
 		}
-		else
+		else if(SpawnObject==1)
 		{
 			//움직이는 액터 생성
 			SpawnedObject = GetWorld()->SpawnActor<AMovingObject>(MovingObject, SpawnLocation, SpawnRotation);
@@ -63,6 +63,15 @@ void AMyActorSpawner::SpawnMyActor()
 				{
 					MObject->MoveSpeed = RandomMoveSpeed;
 				}
+			}
+		}
+		else if (SpawnObject == 2)
+		{
+			//메쉬가 일정시간 마다 바뀌는 액터 생성
+			SpawnedObject = GetWorld()->SpawnActor<ACameleonObject>(CameleonObject, SpawnLocation, SpawnRotation);
+			if (SpawnedObject)
+			{
+				UE_LOG(LogTemp, Log, TEXT("CameleonObject Spawned: Location(%s)"), *SpawnLocation.ToString());
 			}
 		}
 	}

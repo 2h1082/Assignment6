@@ -27,6 +27,8 @@ protected:
 	UStaticMesh* Mesh2;
 	//사용 중인 메쉬 상태 확인 변수
 	bool bUseFirstMesh = true;
+	//타이머 핸들 변수
+	FTimerHandle TimerHandle;
 public:	
 	void ChangeMesh();
 	

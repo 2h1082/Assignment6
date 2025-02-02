@@ -7,6 +7,7 @@
 #include "Components/BoxComponent.h"
 #include "RotatingObject.h"
 #include "MovingObject.h"
+#include "CameleonObject.h"
 #include "MyActorSpawner.generated.h"
 
 UCLASS()
@@ -30,6 +31,9 @@ protected:
 	//스폰할 액터2
 	UPROPERTY(EditAnywhere, Category = "Spawn Settings");
 	TSubclassOf<AMovingObject> MovingObject;
+	//스폰할 액터3
+	UPROPERTY(EditAnywhere, Category = "Spawn Settings");
+	TSubclassOf<ACameleonObject> CameleonObject;
 	//스폰 개수
 	UPROPERTY(EditAnywhere, Category = "Spawn Settings");
 	int32 NumberOfObjects = 15;

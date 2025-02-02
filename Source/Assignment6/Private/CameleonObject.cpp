@@ -3,7 +3,6 @@
 
 #include "CameleonObject.h"
 
-FTimerHandle TimerHandle;
 // Sets default values
 ACameleonObject::ACameleonObject()
 {
@@ -22,7 +21,7 @@ ACameleonObject::ACameleonObject()
 	}
 	//두번째 스태틱 메시 저장
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset2(TEXT("/Game/Resources/Props/SM_Stairs.SM_Stairs"));
-	if (MeshAsset1.Succeeded())
+	if (MeshAsset2.Succeeded())
 	{
 		Mesh2 = MeshAsset2.Object;
 	}
@@ -38,6 +37,21 @@ ACameleonObject::ACameleonObject()
 void ACameleonObject::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("BeginPlay() Called for %s"), *GetName());
+	//생성자에서 로드 안되었을 시 다시 동적 로드
+	if (!Mesh1)
+	{
+		Mesh1 = LoadObject<UStaticMesh>(nullptr, TEXT("/ Game / Resources / Props / Floor_400x400.Floor_400x400"));
+	}
+	if (!Mesh2)
+	{
+		Mesh2 = LoadObject<UStaticMesh>(nullptr, TEXT("/Game/Resources/Props/SM_Stairs.SM_Stairs"));
+	}
+	if (!Mesh1 || !Mesh2)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load Mesh1,2"));
+		return;
+	}
 	//3초 타이머 설정
 	if (GetWorld())
 	{
