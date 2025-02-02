@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright Epic Games, Inc. All Rights Reserved.
 #pragma once
 
 #include "CoreMinimal.h"
@@ -18,9 +18,17 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	USceneComponent* SceneRoot;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings");
+	UStaticMeshComponent* StaticMeshComp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings");
+	UStaticMesh* Mesh1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings");
+	UStaticMesh* Mesh2;
+	//사용 중인 메쉬 상태 확인 변수
+	bool bUseFirstMesh = true;
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	void ChangeMesh();
+	
 
 };

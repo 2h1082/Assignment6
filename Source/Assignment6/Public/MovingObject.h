@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright Epic Games, Inc. All Rights Reserved.
 #pragma once
 
 #include "CoreMinimal.h"
@@ -21,9 +21,6 @@ protected:
 	USceneComponent* SceneRoot;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings");
 	UStaticMeshComponent* StaticMeshComp;
-	//이동 속도
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings");
-	float MoveSpeed;
 	//최대 이동 거리
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings");
 	float MaxRange;
@@ -35,5 +32,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	//이동 속도
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings");
+	float MoveSpeed;
 };

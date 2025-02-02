@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "MovingObject.h"
 
@@ -7,11 +7,10 @@
 AMovingObject::AMovingObject()
 {
 	PrimaryActorTick.bCanEverTick = true;
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	//SceneRoot 설정
 	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
 	SetRootComponent(SceneRoot);
 
-	
 	StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMeshComp->SetupAttachment(SceneRoot);
 	//스태틱 메시 설정
@@ -26,15 +25,10 @@ AMovingObject::AMovingObject()
 	{
 		StaticMeshComp->SetMaterial(0, MaterialAsset.Object);
 	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Fail"));
-	}
 	SetActorRotation(FRotator(0.0f, 0.0f, 0.0f)); //회전
 	SetActorScale3D(FVector(2.0f)); //크기
 	
 	MoveSpeed = 200.0f;
-	StartLocation=GetActorLocation();
 	MaxRange = 400.0f;
 	Direction = 1;
 }
@@ -43,6 +37,8 @@ AMovingObject::AMovingObject()
 void AMovingObject::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StartLocation = GetActorLocation();
 }
 
 // Called every frame
